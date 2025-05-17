@@ -58,7 +58,14 @@ social-media/
 
 
 ## 项目架构
-![c4-model.svg](docs/architecture/c4-model.svg)
+### C4 Context
+![c4-context.svg](docs/architecture/c4-context.svg)
+### C4 Container
+![c4-container.svg](docs/architecture/c4-container.svg)
+### C4 Component
+![c4-component.svg](docs/architecture/c4-component.svg)
+### C4 Code
+![c4-code.svg](docs/architecture/c4-code.svg)
 
 ## 数据库关系
 ![ER-model.svg](docs/architecture/ER-model.svg)

@@ -1,54 +1,7 @@
 @startuml
-!include ./c4-plantuml/C4_Context.puml
-!include ./c4-plantuml//C4_Container.puml
 !include ./c4-plantuml//C4_Component.puml
 
 LAYOUT_WITH_LEGEND()
-
-' 系统上下文图
-System_Boundary(system, "社交媒体系统") {
-    Person(user, "用户", "注册并使用系统的用户")
-    Person(admin, "管理员", "管理系统内容的管理员")
-
-    System(web_app, "Web应用", "基于Next.js的前端应用")
-    System(api, "API服务", "基于Express.js的后端API服务")
-    SystemDb(db, "MongoDB数据库", "存储系统数据")
-    System_Ext(cdn, "CDN服务", "存储和分发媒体内容")
-}
-
-Rel(user, web_app, "使用", "HTTPS")
-Rel(admin, web_app, "管理", "HTTPS")
-Rel(web_app, api, "调用", "HTTPS")
-Rel(api, db, "读写", "MongoDB")
-Rel(api, cdn, "上传/获取", "HTTPS")
-
-' 容器图
-System_Boundary(web_app_boundary, "Web应用") {
-    Container(web_app, "Web应用", "Next.js", "提供用户界面")
-    Container(components, "组件库", "React", "可复用的UI组件")
-    Container(api_client, "API客户端", "Axios", "与后端通信")
-}
-
-System_Boundary(api_boundary, "API服务") {
-    Container(api, "API服务", "Express.js", "处理业务逻辑")
-    Container(routes, "路由层", "Express Router", "处理HTTP请求")
-    Container(controllers, "控制器", "TypeScript", "处理业务逻辑")
-    Container(models, "数据模型", "Mongoose", "数据持久化")
-}
-
-System_Boundary(external_boundary, "外部服务") {
-    ContainerDb(db, "MongoDB", "数据库", "存储系统数据")
-    System_Ext(cdn, "CDN", "内容分发网络")
-}
-
-Rel(web_app, components, "使用", "TypeScript")
-Rel(web_app, api_client, "使用", "TypeScript")
-Rel(api_client, api, "调用", "HTTPS")
-Rel(api, routes, "路由", "TypeScript")
-Rel(routes, controllers, "调用", "TypeScript")
-Rel(controllers, models, "调用", "TypeScript")
-Rel(models, db, "读写", "MongoDB")
-Rel(controllers, cdn, "上传/获取", "HTTPS")
 
 ' 组件图 - Web应用
 Container_Boundary(web_app, "Web应用") {
@@ -89,17 +42,4 @@ Container_Boundary(api, "API服务") {
     Component(notification_model, "通知模型", "Mongoose", "通知数据模型")
     Component(follow_model, "关注模型", "Mongoose", "关注关系模型")
 }
-
-' 代码图 - 帖子发布流程
-Container_Boundary(post_flow, "帖子发布流程") {
-    Component(post_route, "PostRoute", "Express Router", "处理帖子请求")
-    Component(post_controller, "PostController", "TypeScript", "处理帖子逻辑")
-    Component(post_model, "PostModel", "Mongoose", "帖子数据模型")
-    Component(cdn_client, "CDNClient", "TypeScript", "与CDN通信")
-}
-
-Rel(post_route, post_controller, "调用", "TypeScript")
-Rel(post_controller, post_model, "调用", "TypeScript")
-Rel(post_controller, cdn_client, "调用", "HTTPS")
-
 @enduml
