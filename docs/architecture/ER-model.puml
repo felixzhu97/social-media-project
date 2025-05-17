@@ -6,35 +6,51 @@
 LAYOUT_WITH_LEGEND()
 
 ' 数据库模型图
-Container_Boundary(database, "数据库模型") {
+Container_Boundary(database, "社交媒体数据库模型") {
     Component(user, "User", "Mongoose Schema", "用户信息") {
-        Component(user_fields, "字段", "Schema", "email, password, role, firstName, lastName, phone, address, city, province, postalCode, country, paymentMethod")
+        Component(user_fields, "字段", "Schema", "username, email, password, fullName, bio, profilePic, website, gender, phone, isPrivate, isVerified")
     }
 
-    Component(product, "Product", "Mongoose Schema", "商品信息") {
-        Component(product_fields, "字段", "Schema", "name, description, price, image, category, stock, rating, reviewCount, originalPrice, inStock")
+    Component(post, "Post", "Mongoose Schema", "帖子信息") {
+        Component(post_fields, "字段", "Schema", "userId, caption, location, images[], likesCount, commentsCount, createdAt")
     }
 
-    Component(order, "Order", "Mongoose Schema", "订单信息") {
-        Component(order_fields, "字段", "Schema", "userId, items[], totalAmount, status")
-        Component(order_item, "OrderItem", "Schema", "productId, name, image, price, quantity, description")
+    Component(story, "Story", "Mongoose Schema", "故事信息") {
+        Component(story_fields, "字段", "Schema", "userId, mediaUrl, expiresAt, viewers[]")
     }
 
-    Component(cart, "Cart", "Mongoose Schema", "购物车信息") {
-        Component(cart_fields, "字段", "Schema", "userId, items[]")
-        Component(cart_item, "CartItem", "Schema", "productId, quantity")
+    Component(comment, "Comment", "Mongoose Schema", "评论信息") {
+        Component(comment_fields, "字段", "Schema", "userId, postId, content, createdAt")
     }
 
-    Component(payment, "Payment", "Mongoose Schema", "支付信息") {
-        Component(payment_fields, "字段", "Schema", "userId, firstName, lastName, email, phone, address, city, province, postalCode, paymentMethod")
+    Component(like, "Like", "Mongoose Schema", "点赞信息") {
+        Component(like_fields, "字段", "Schema", "userId, postId, createdAt")
+    }
+
+    Component(message, "Message", "Mongoose Schema", "私信信息") {
+        Component(message_fields, "字段", "Schema", "senderId, receiverId, content, mediaUrl, isRead, createdAt")
+    }
+
+    Component(notification, "Notification", "Mongoose Schema", "通知信息") {
+        Component(notification_fields, "字段", "Schema", "recipientId, senderId, type, postId, commentId, isRead, createdAt")
+    }
+
+    Component(follow, "Follow", "Mongoose Schema", "关注关系") {
+        Component(follow_fields, "字段", "Schema", "followerId, followingId, createdAt")
     }
 }
 
-Rel(user, product, "1:N", "创建/管理")
-Rel(user, order, "1:N", "创建/查看")
-Rel(user, cart, "1:1", "拥有")
-Rel(user, payment, "1:N", "创建/查看")
-Rel(product, order, "1:N", "被订购")
-Rel(product, cart, "1:N", "被添加")
+' 实体关系
+Rel(user, post, "1:N", "创建")
+Rel(user, story, "1:N", "创建")
+Rel(user, comment, "1:N", "发表")
+Rel(user, like, "1:N", "点赞")
+Rel(user, message, "1:N", "发送/接收")
+Rel(user, notification, "1:N", "接收")
+Rel(user, follow, "N:M", "关注", "通过followerId和followingId")
+
+Rel(post, comment, "1:N", "拥有")
+Rel(post, like, "1:N", "拥有")
+Rel(post, notification, "1:N", "触发")
 
 @enduml
