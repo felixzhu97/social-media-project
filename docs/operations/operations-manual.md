@@ -23,9 +23,9 @@
 
 | 环境     | 用途                   | 访问地址                         |
 | -------- | ---------------------- | -------------------------------- |
-| 开发环境 | 日常开发和功能测试     | https://dev.shopping-system.com  |
-| 测试环境 | 集成测试和用户验收测试 | https://test.shopping-system.com |
-| 生产环境 | 线上服务               | https://shopping-system.com      |
+| 开发环境 | 日常开发和功能测试     | https://dev.social-media.com  |
+| 测试环境 | 集成测试和用户验收测试 | https://test.social-media.com |
+| 生产环境 | 线上服务               | https://social-media.com      |
 
 ### 2.2 环境变量管理
 
@@ -277,10 +277,10 @@ pnpm update
 
 ```bash
 # 使用Vercel CLI查看日志
-vercel logs shopping-system
+vercel logs social-media
 
 # 筛选错误日志
-vercel logs shopping-system --since 2h --scope=your-team-name | grep ERROR
+vercel logs social-media --since 2h --scope=your-team-name | grep ERROR
 ```
 
 ### 9.3 日志保留策略
@@ -314,10 +314,10 @@ vercel logs shopping-system --since 2h --scope=your-team-name | grep ERROR
 
 | 角色           | 负责人 | 联系方式                     | 工作时间   |
 | -------------- | ------ | ---------------------------- | ---------- |
-| 系统管理员     | 张三   | admin@shopping-system.com    | 9:00-18:00 |
-| 数据库管理员   | 李四   | dba@shopping-system.com      | 9:00-18:00 |
-| 前端开发负责人 | 王五   | frontend@shopping-system.com | 9:00-18:00 |
-| 后端开发负责人 | 赵六   | backend@shopping-system.com  | 9:00-18:00 |
+| 系统管理员     | 张三   | admin@social-media.com    | 9:00-18:00 |
+| 数据库管理员   | 李四   | dba@social-media.com      | 9:00-18:00 |
+| 前端开发负责人 | 王五   | frontend@social-media.com | 9:00-18:00 |
+| 后端开发负责人 | 赵六   | backend@social-media.com  | 9:00-18:00 |
 
 ### 11.2 紧急联系流程
 
@@ -330,4 +330,4 @@ vercel logs shopping-system --since 2h --scope=your-team-name | grep ERROR
 
 1. 拨打紧急电话：+86-123-4567890
 2. 发送短信到：+86-123-4567890
-3. 电子邮件：emergency@shopping-system.com
+3. 电子邮件：emergency@social-media.com

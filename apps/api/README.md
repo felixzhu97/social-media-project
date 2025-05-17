@@ -86,7 +86,7 @@ cp .env.example .env
 
 ```
 # 数据库配置
-MONGODB_URI=mongodb://localhost:27017/shopping-system
+MONGODB_URI=mongodb://localhost:27017/social-media
 
 # 服务器配置
 PORT=3001

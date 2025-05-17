@@ -72,7 +72,7 @@ const generateMoreProducts = () => {
 const products = generateMoreProducts();
 
 // 连接到MongoDB
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/shopping-system';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/social-media';
 
 const seedEnrichedProducts = async () => {
   try {

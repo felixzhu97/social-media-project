@@ -59,11 +59,11 @@
 
 | 角色              | 负责人 | 联系方式                                                | 职责                                 |
 | ----------------- | ------ | ------------------------------------------------------- | ------------------------------------ |
-| DR协调员          | 张三   | coordinator@shopping-system.com<br>电话: 13800000001    | 灾难评估、协调恢复工作、与管理层沟通 |
-| 数据库恢复专员    | 李四   | database@shopping-system.com<br>电话: 13800000002       | 数据库备份恢复、数据一致性验证       |
-| 应用恢复专员      | 王五   | application@shopping-system.com<br>电话: 13800000003    | 应用服务恢复、功能测试               |
-| 网络/基础设施专员 | 赵六   | infrastructure@shopping-system.com<br>电话: 13800000004 | 网络连接、服务器资源保障             |
-| 安全专员          | 钱七   | security@shopping-system.com<br>电话: 13800000005       | 安全审计、漏洞评估与修复             |
+| DR协调员          | 张三   | coordinator@social-media.com<br>电话: 13800000001    | 灾难评估、协调恢复工作、与管理层沟通 |
+| 数据库恢复专员    | 李四   | database@social-media.com<br>电话: 13800000002       | 数据库备份恢复、数据一致性验证       |
+| 应用恢复专员      | 王五   | application@social-media.com<br>电话: 13800000003    | 应用服务恢复、功能测试               |
+| 网络/基础设施专员 | 赵六   | infrastructure@social-media.com<br>电话: 13800000004 | 网络连接、服务器资源保障             |
+| 安全专员          | 钱七   | security@social-media.com<br>电话: 13800000005       | 安全审计、漏洞评估与修复             |
 
 ### 3.2 应急联系清单
 
@@ -248,7 +248,7 @@ graph TD
 在此期间，您可能无法[具体影响]。我们对由此带来的不便深表歉意。
 
 我们将通过[通知渠道]及时通知您系统恢复的最新进展。
-如有紧急问题，请联系客户支持团队：support@shopping-system.com
+如有紧急问题，请联系客户支持团队：support@social-media.com
 
 购物系统团队
 ```

@@ -344,6 +344,6 @@
 ## 附件
 
 - [Figma设计文档](https://figma.com/file/xxx)
-- [API文档](https://api-docs.shopping-system.com)
-- [当前冲刺任务板](https://jira.shopping-system.com/sprint-5)
+- [API文档](https://api-docs.social-media.com)
+- [当前冲刺任务板](https://jira.social-media.com/sprint-5)
 - [用户认证流程图](https://drive.google.com/file/xxx)

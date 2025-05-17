@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 describe('Product Model', () => {
   beforeAll(async () => {
-    await mongoose.connect('mongodb://localhost:27017/shopping-system-test');
+    await mongoose.connect('mongodb://localhost:27017/social-media-test');
   });
 
   afterAll(async () => {

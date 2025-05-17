@@ -31,8 +31,8 @@
 ### 1. 克隆代码仓库
 
 ```bash
-git clone https://github.com/your-username/shopping-system.git
-cd shopping-system
+git clone https://github.com/your-username/social-media.git
+cd social-media
 ```
 
 ### 2. 安装依赖

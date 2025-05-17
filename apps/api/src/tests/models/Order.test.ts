@@ -9,7 +9,7 @@ describe('Order Model', () => {
   let testProduct;
 
   beforeAll(async () => {
-    await mongoose.connect('mongodb://localhost:27017/shopping-system-test');
+    await mongoose.connect('mongodb://localhost:27017/social-media-test');
   });
 
   afterAll(async () => {

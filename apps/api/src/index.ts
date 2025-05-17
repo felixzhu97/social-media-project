@@ -17,7 +17,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/shopping-system';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/social-media';
 
 export const getJwtSecret = () => {
   return process.env.JWT_SECRET || 'your_jwt_secret';

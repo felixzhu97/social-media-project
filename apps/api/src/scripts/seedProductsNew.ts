@@ -11,7 +11,7 @@ import { sportsOutdoorsProducts } from './productData/sportsOutdoors';
 dotenv.config();
 
 // 连接到MongoDB
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/shopping-system';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/social-media';
 
 const seedProducts = async () => {
   try {
