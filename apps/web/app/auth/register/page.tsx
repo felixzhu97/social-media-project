@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 
@@ -44,26 +43,12 @@ export default function RegisterPage() {
               isDarkTheme ? "bg-black border border-gray-800" : "bg-white border border-gray-300"
             } rounded-sm p-10`}
           >
-            {/* Instagram Logo */}
+            {/* Photogram Logo */}
             <div className="w-full mb-4 flex justify-center">
               {isDarkTheme ? (
-                <Image
-                  src="/photogram-logo-white.png?height=80&width=175&query=photogram logo white"
-                  alt="Instagram"
-                  width={175}
-                  height={51}
-                  priority
-                  className="h-[51px] w-auto object-contain"
-                />
+                <div className="text-3xl font-bold text-white">Photogram</div>
               ) : (
-                <Image
-                  src="/photogram-logo-black.png?height=80&width=175&query=photogram logo black"
-                  alt="Instagram"
-                  width={175}
-                  height={51}
-                  priority
-                  className="h-[51px] w-auto object-contain"
-                />
+                <div className="text-3xl font-bold text-black">Photogram</div>
               )}
             </div>
 
@@ -132,7 +117,7 @@ export default function RegisterPage() {
               {/* 联系人信息说明 */}
               <div className="mt-2 text-center">
                 <p className={`text-xs ${isDarkTheme ? "text-gray-400" : "text-gray-500"}`}>
-                  使用我们服务的人可能已将您的联系信息上传到Instagram。{" "}
+                  使用我们服务的人可能已将您的联系信息上传到Photogram。{" "}
                   <Link href="#" className={`${isDarkTheme ? "text-blue-400" : "text-blue-900"}`}>
                     了解更多
                   </Link>
@@ -188,23 +173,34 @@ export default function RegisterPage() {
           <div className="w-full mt-5 text-center">
             <p className={`text-sm ${isDarkTheme ? "text-gray-300" : "text-gray-700"} mb-5`}>获取应用</p>
             <div className="flex justify-center space-x-2">
-              <Link href="https://apps.apple.com/app/instagram/id389801252">
-                <Image
-                  src="/app-store-black.png?height=40&width=136&query=app store badge black"
-                  alt="App Store"
-                  width={136}
-                  height={40}
-                  className="h-10"
-                />
+              <Link href="https://apps.apple.com">
+                <div className="h-10 w-32 bg-black text-white text-xs flex items-center justify-center rounded">
+                  <div className="mr-1">
+                    <svg width="20" height="24" viewBox="0 0 14 17" fill="currentColor">
+                      <path d="M13.0729 13.9999C12.5309 15.0599 11.9149 16.0679 10.9949 16.0839C10.0749 16.0999 9.7949 15.4399 8.7549 15.4399C7.7149 15.4399 7.3809 16.0679 6.5229 16.0999C5.6649 16.1319 4.9629 14.9839 4.4149 13.9279C3.2989 11.7799 2.4049 7.7599 3.5569 5.1599C4.1249 3.8879 5.2449 3.0399 6.4609 3.0239C7.3649 3.0079 8.2049 3.7199 8.7549 3.7199C9.3049 3.7199 10.3449 2.8719 11.4329 3.0079C11.9629 3.0399 13.0089 3.2719 13.6729 4.2159C13.5849 4.2639 12.1249 5.0799 12.1409 6.8559C12.1569 8.9999 14.0049 9.6759 14.0209 9.6759C14.0049 9.7079 13.7249 10.8399 13.0249 11.9879C12.4109 12.9799 11.7649 13.9839 11.0149 13.9999C10.2649 14.0159 9.9369 13.5599 9.0329 13.5599C8.1289 13.5599 7.7689 13.9999 7.0509 13.9999C6.3329 13.9999 5.8029 13.0759 5.2049 12.0839C4.5509 10.9999 4.0369 9.5879 4.0369 8.2239C4.0369 5.8399 5.5449 4.5839 7.0189 4.5839C7.8369 4.5679 8.5869 5.0879 9.0969 5.0879C9.6069 5.0879 10.4569 4.5039 11.4649 4.5679C11.7969 4.5679 12.9129 4.6319 13.6409 5.6399C13.5529 5.6879 13.0729 5.9999 12.7249 6.5679C12.3769 7.1359 12.0929 7.9199 12.0929 8.8919C12.0929 9.8639 12.4249 10.7559 12.8369 11.3719C13.2489 11.9879 13.7089 12.3959 14.0049 12.6119C13.9169 13.0999 13.4409 13.3639 13.0729 13.9999ZM9.0969 2.3999C9.4929 1.9119 9.7729 1.2159 9.7729 0.5199C9.7729 0.4239 9.7729 0.3279 9.7569 0.2479C9.0649 0.2799 8.2469 0.7039 7.7689 1.2639C7.4049 1.6559 7.0669 2.3519 7.0669 3.0639C7.0669 3.1759 7.0829 3.2879 7.0829 3.3199C7.1389 3.3359 7.2269 3.3519 7.3149 3.3519C8.0809 3.3519 8.7009 2.8879 9.0969 2.3999Z" />
+                    </svg>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <span className="text-[0.6rem] leading-none">Download on the</span>
+                    <span className="text-[0.85rem] font-semibold">App Store</span>
+                  </div>
+                </div>
               </Link>
-              <Link href="https://play.google.com/store/apps/details?id=com.instagram.android">
-                <Image
-                  src="/google-play-black.png?height=40&width=136&query=google play badge black"
-                  alt="Google Play"
-                  width={136}
-                  height={40}
-                  className="h-10"
-                />
+              <Link href="https://play.google.com">
+                <div className="h-10 w-32 bg-black text-white text-xs flex items-center justify-center rounded px-1">
+                  <div className="mr-1">
+                    <svg width="20" height="24" viewBox="0 0 16 18" fill="currentColor">
+                      <path d="M0.843 17.2806C0.6 16.9306 0.45 16.4806 0.45 15.9306V2.03063C0.45 1.48063 0.6 1.03063 0.843 0.680634L0.9 0.608789L8.25 7.95879V8.03063L0.9 15.3806L0.843 17.2806Z" />
+                      <path d="M11.55 11.3306L8.25 8.03063V7.95879L11.55 4.65879L11.625 4.73063L15.525 6.98063C16.575 7.58063 16.575 8.48063 15.525 9.08063L11.625 11.2587L11.55 11.3306Z" />
+                      <path d="M11.625 11.2587L8.25 7.95879L0.9 15.3806C1.275 15.7587 1.8 15.8306 2.4 15.5306L11.625 11.2587Z" />
+                      <path d="M11.625 4.65879L2.4 0.458789C1.8 0.158789 1.275 0.230634 0.9 0.608789L8.25 7.95879L11.625 4.65879Z" />
+                    </svg>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <span className="text-[0.6rem] leading-none">GET IT ON</span>
+                    <span className="text-[0.85rem] font-semibold">Google Play</span>
+                  </div>
+                </div>
               </Link>
             </div>
           </div>
@@ -246,7 +242,7 @@ export default function RegisterPage() {
               位置
             </Link>
             <Link href="#" className="hover:underline">
-              Instagram Lite
+              Photogram Lite
             </Link>
             <Link href="#" className="hover:underline">
               Threads

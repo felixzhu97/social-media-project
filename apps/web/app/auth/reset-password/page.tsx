@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { Lock } from "lucide-react"
@@ -35,23 +34,9 @@ export default function ResetPasswordPage() {
           <div className="flex-1">
             <Link href="/" className="flex items-center">
               {isDarkTheme ? (
-                <Image
-                  src="/photogram-logo-white.png?height=80&width=175&query=photogram logo white"
-                  alt="Instagram"
-                  width={103}
-                  height={29}
-                  priority
-                  className="h-[29px] w-auto object-contain"
-                />
+                <div className="text-2xl font-bold text-white">Photogram</div>
               ) : (
-                <Image
-                  src="/photogram-logo-black.png?height=80&width=175&query=photogram logo black"
-                  alt="Instagram"
-                  width={103}
-                  height={29}
-                  priority
-                  className="h-[29px] w-auto object-contain"
-                />
+                <div className="text-2xl font-bold text-black">Photogram</div>
               )}
             </Link>
           </div>

@@ -351,15 +351,16 @@ export default function HomePage() {
               <AvatarFallback>用户</AvatarFallback>
             </Avatar>
             <div>
-              <div className="font-medium">felixzhu</div>
+              <div className="font-medium">felix</div>
               <div className={isDarkTheme ? "text-gray-500" : "text-gray-500"}>张三</div>
             </div>
             <Button
               variant="link"
               size="sm"
               className={isDarkTheme ? "ml-auto text-blue-500" : "ml-auto text-blue-500"}
+              asChild
             >
-              切换
+              <Link href="/auth/login">切换</Link>
             </Button>
           </div>
 
