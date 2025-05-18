@@ -1,68 +1,52 @@
-'use client';
+"use client"
 
-import Link from 'next/link';
-import { Home, ArrowLeft } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
-import { Navbar } from '@/components/navbar';
-import { Footer } from '@/components/footer';
+import Link from "next/link"
+import { useState, useEffect } from "react"
+import { useTheme } from "next-themes"
+import { AlertCircle } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Sidebar from "@/components/sidebar"
 
 export default function NotFound() {
+  const [mounted, setMounted] = useState(false)
+  const { theme } = useTheme()
+
+  // 水合时防止客户端/服务器不匹配
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
+  const isDarkTheme =
+    theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+
   return (
-    <div className="flex flex-col min-h-screen bg-[#f5f5f7]">
-      <Navbar />
-      <main className="flex-1 container mx-auto px-4 py-12 flex items-center justify-center">
-        <div className="max-w-xl w-full text-center">
-          <div className="bg-white rounded-3xl shadow-sm p-10 md:p-16">
-            <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 mb-6">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-gray-500"
-              >
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-              </svg>
-            </div>
+    <div className={`flex min-h-screen ${isDarkTheme ? "bg-black text-white" : "bg-white text-black"}`}>
+      {/* 左侧导航栏 */}
+      <Sidebar />
 
-            <h1 className="text-4xl font-semibold text-gray-900 mb-3">功能即将推出</h1>
-            <p className="text-gray-600 mb-8 text-lg max-w-md mx-auto">
-              我们正在努力开发此功能，敬请期待。请稍后再访问。
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                className="w-full sm:w-auto rounded-full bg-blue-600 hover:bg-blue-700 transition-colors h-12 px-8"
-              >
-                <Link href="/">
-                  <Home className="h-4 w-4 mr-2" />
-                  返回首页
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="w-full sm:w-auto rounded-full border-gray-300 hover:bg-gray-100 transition-colors h-12 px-8"
-              >
-                <Link href="/products">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  浏览产品
-                </Link>
-              </Button>
-            </div>
+      {/* 主要内容区域 */}
+      <div className="flex flex-1 justify-center items-center">
+        <div className="flex flex-col items-center justify-center max-w-md px-4 text-center">
+          <div
+            className={`w-20 h-20 rounded-full ${isDarkTheme ? "bg-gray-800" : "bg-gray-100"} flex items-center justify-center mb-6`}
+          >
+            <AlertCircle className="h-10 w-10 text-gray-500" />
           </div>
+          <h1 className={`text-2xl font-semibold mb-2 ${isDarkTheme ? "text-white" : "text-black"}`}>
+            Page isn't available
+          </h1>
+          <p className={`text-sm mb-6 ${isDarkTheme ? "text-gray-400" : "text-gray-600"}`}>
+            The link may be broken, or the profile may have been removed.
+          </p>
+          <Button asChild className="bg-[#0095f6] hover:bg-[#1877f2] text-white font-semibold rounded-lg">
+            <Link href="/">See more on Photogram</Link>
+          </Button>
         </div>
-      </main>
-      <Footer />
+      </div>
     </div>
-  );
+  )
 }

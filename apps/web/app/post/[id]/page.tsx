@@ -43,7 +43,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
           </div>
           <div className="relative aspect-square">
             <Image
-              src={`/instagram-post.png?height=600&width=600&query=instagram post ${postId}`}
+              src={`/photogram-post.png?height=600&width=600&query=social post ${postId}`}
               alt={`帖子${postId}`}
               fill
               className="object-cover"
@@ -71,7 +71,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
             <div className="font-medium mb-1">1,234 赞</div>
             <div>
               <span className="font-medium mr-2">用户{postId}</span>
-              <span>这是一个很棒的帖子！#instagram #照片 #分享</span>
+              <span>这是一个很棒的帖子！#photogram #照片 #分享</span>
             </div>
             <div className="text-muted-foreground text-sm mt-1">查看全部 56 条评论</div>
             <div className="mt-2 space-y-2">

@@ -49,7 +49,7 @@ export default function NotificationsPage() {
                   </div>
                   <div className="h-12 w-12 relative">
                     <img
-                      src={`/instagram-post.png?height=48&width=48&query=post${id}`}
+                      src={`/photogram-post.png?height=48&width=48&query=post${id}`}
                       alt="帖子缩略图"
                       className="h-full w-full object-cover"
                     />
@@ -97,7 +97,7 @@ export default function NotificationsPage() {
                   </div>
                   <div className="h-12 w-12 relative">
                     <img
-                      src={`/instagram-post.png?height=48&width=48&query=post${id}`}
+                      src={`/photogram-post.png?height=48&width=48&query=post${id}`}
                       alt="帖子缩略图"
                       className="h-full w-full object-cover"
                     />

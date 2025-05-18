@@ -66,7 +66,7 @@ export default function ProfilePage() {
               {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((id) => (
                 <div key={id} className="relative aspect-square">
                   <Image
-                    src={`/instagram-post.png?height=300&width=300&query=instagram post ${id}`}
+                    src={`/photogram-post.png?height=300&width=300&query=social post ${id}`}
                     alt={`帖子${id}`}
                     fill
                     className="object-cover"

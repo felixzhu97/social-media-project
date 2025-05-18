@@ -109,7 +109,7 @@ export const posts: Post[] = [
   {
     id: "1",
     userId: "1",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 1",
+    image: "/photogram-post.png?height=600&width=600&query=social post 1",
     caption: "美丽的风景 #旅行 #摄影",
     likes: 1234,
     comments: 56,
@@ -118,7 +118,7 @@ export const posts: Post[] = [
   {
     id: "2",
     userId: "2",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 2",
+    image: "/photogram-post.png?height=600&width=600&query=social post 2",
     caption: "今天的午餐 #美食 #健康",
     likes: 876,
     comments: 32,
@@ -127,7 +127,7 @@ export const posts: Post[] = [
   {
     id: "3",
     userId: "3",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 3",
+    image: "/photogram-post.png?height=600&width=600&query=social post 3",
     caption: "新款时尚单品 #时尚 #购物",
     likes: 2345,
     comments: 78,
@@ -136,7 +136,7 @@ export const posts: Post[] = [
   {
     id: "4",
     userId: "4",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 4",
+    image: "/photogram-post.png?height=600&width=600&query=social post 4",
     caption: "美丽的海滩 #旅行 #海滩",
     likes: 3456,
     comments: 87,
@@ -145,7 +145,7 @@ export const posts: Post[] = [
   {
     id: "5",
     userId: "5",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 5",
+    image: "/photogram-post.png?height=600&width=600&query=social post 5",
     caption: "今天的健身成果 #健身 #健康",
     likes: 2345,
     comments: 54,
@@ -154,7 +154,7 @@ export const posts: Post[] = [
   {
     id: "6",
     userId: "1",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 6",
+    image: "/photogram-post.png?height=600&width=600&query=social post 6",
     caption: "城市夜景 #城市 #夜景 #摄影",
     likes: 5678,
     comments: 98,
@@ -163,7 +163,7 @@ export const posts: Post[] = [
   {
     id: "7",
     userId: "2",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 7",
+    image: "/photogram-post.png?height=600&width=600&query=social post 7",
     caption: "自制蛋糕 #美食 #甜点 #烘焙",
     likes: 1987,
     comments: 43,
@@ -172,7 +172,7 @@ export const posts: Post[] = [
   {
     id: "8",
     userId: "3",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 8",
+    image: "/photogram-post.png?height=600&width=600&query=social post 8",
     caption: "秋季新装 #时尚 #秋季 #穿搭",
     likes: 3456,
     comments: 76,
@@ -181,7 +181,7 @@ export const posts: Post[] = [
   {
     id: "9",
     userId: "4",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 9",
+    image: "/photogram-post.png?height=600&width=600&query=social post 9",
     caption: "山间徒步 #旅行 #徒步 #自然",
     likes: 2876,
     comments: 65,
@@ -190,7 +190,7 @@ export const posts: Post[] = [
   {
     id: "10",
     userId: "5",
-    image: "/instagram-post.png?height=600&width=600&query=instagram post 10",
+    image: "/photogram-post.png?height=600&width=600&query=social post 10",
     caption: "瑜伽练习 #健身 #瑜伽 #健康",
     likes: 1876,
     comments: 43,
@@ -210,7 +210,7 @@ export function generateMorePosts(page: number, pageSize = 5): Post[] {
     newPosts.push({
       id: String(postId),
       userId,
-      image: `/instagram-post.png?height=600&width=600&query=instagram post ${postId}`,
+      image: `/photogram-post.png?height=600&width=600&query=social post ${postId}`,
       caption: generateRandomCaption(Number.parseInt(userId)),
       likes: Math.floor(Math.random() * 5000) + 100,
       comments: Math.floor(Math.random() * 100) + 10,

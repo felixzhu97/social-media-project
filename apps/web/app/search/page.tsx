@@ -27,7 +27,7 @@ export default function SearchPage() {
   } = useInfiniteScroll<SearchPost>({
     initialData: Array.from({ length: 12 }).map((_, i) => ({
       id: `search-${i + 1}`,
-      image: `/instagram-post.png?height=300&width=300&query=trending post ${i + 1}`,
+      image: `/photogram-post.png?height=300&width=300&query=trending post ${i + 1}`,
     })),
     fetchMore: async (page) => {
       // 模拟网络延迟
@@ -39,7 +39,7 @@ export default function SearchPage() {
             // 生成更多搜索结果图片
             const newPosts = Array.from({ length: 12 }).map((_, i) => ({
               id: `search-${(page - 1) * 12 + i + 13}`,
-              image: `/instagram-post.png?height=300&width=300&query=trending post ${(page - 1) * 12 + i + 13}`,
+              image: `/photogram-post.png?height=300&width=300&query=trending post ${(page - 1) * 12 + i + 13}`,
             }))
             resolve(newPosts)
           }
@@ -146,7 +146,7 @@ export default function SearchPage() {
                 <div key={index} className="flex items-center gap-3">
                   <div className="relative h-12 w-12 rounded-md overflow-hidden">
                     <Image
-                      src={`/instagram-post.png?height=48&width=48&query=${tag}`}
+                      src={`/photogram-post.png?height=48&width=48&query=${tag}`}
                       alt={tag}
                       fill
                       className="object-cover"
@@ -166,7 +166,7 @@ export default function SearchPage() {
                 <div key={index} className="flex items-center gap-3">
                   <div className="relative h-12 w-12 rounded-md overflow-hidden">
                     <Image
-                      src={`/instagram-post.png?height=48&width=48&query=${place} city`}
+                      src={`/photogram-post.png?height=48&width=48&query=${place} city`}
                       alt={place}
                       fill
                       className="object-cover"
