@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "购物系统 API",
-    "description": "购物系统的API文档",
+    "title": "社交媒体系统 API",
+    "description": "社交媒体系统的API文档，支持用户认证、内容管理、社交互动和消息通知功能",
     "version": "1.0.0",
     "contact": {
       "name": "API 开发团队"
@@ -12,374 +12,46 @@
     {
       "url": "http://localhost:3001",
       "description": "开发服务器"
+    },
+    {
+      "url": "https://api.social-media.com/v1",
+      "description": "生产服务器"
     }
   ],
   "tags": [
     {
-      "name": "products",
-      "description": "产品管理"
-    },
-    {
-      "name": "cart",
-      "description": "购物车管理"
+      "name": "auth",
+      "description": "用户认证"
     },
     {
       "name": "users",
       "description": "用户管理"
     },
     {
-      "name": "orders",
-      "description": "订单管理"
+      "name": "posts",
+      "description": "内容管理"
     },
     {
-      "name": "payments",
-      "description": "支付管理"
+      "name": "comments",
+      "description": "评论管理"
+    },
+    {
+      "name": "interactions",
+      "description": "社交互动"
+    },
+    {
+      "name": "messages",
+      "description": "消息管理"
+    },
+    {
+      "name": "notifications",
+      "description": "通知管理"
     }
   ],
   "paths": {
-    "/api/products": {
-      "get": {
-        "tags": ["products"],
-        "summary": "获取所有产品",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "category",
-            "schema": {
-              "type": "string"
-            },
-            "description": "按类别筛选产品"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "成功获取产品列表",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Product"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
+    "/auth/register": {
       "post": {
-        "tags": ["products"],
-        "summary": "创建新产品",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewProduct"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "产品创建成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/products/{id}": {
-      "get": {
-        "tags": ["products"],
-        "summary": "获取单个产品",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "产品ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "成功获取产品详情",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "产品不存在"
-          }
-        }
-      },
-      "put": {
-        "tags": ["products"],
-        "summary": "更新产品",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "产品ID"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewProduct"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "产品更新成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "产品不存在"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["products"],
-        "summary": "删除产品",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "产品ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "产品删除成功"
-          },
-          "404": {
-            "description": "产品不存在"
-          }
-        }
-      }
-    },
-    "/api/cart/{userId}": {
-      "get": {
-        "tags": ["cart"],
-        "summary": "获取用户购物车",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "userId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "用户ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "成功获取购物车",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Cart"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["cart"],
-        "summary": "添加商品到购物车",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "userId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "用户ID"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["productId", "quantity"],
-                "properties": {
-                  "productId": {
-                    "type": "string",
-                    "description": "产品ID"
-                  },
-                  "quantity": {
-                    "type": "integer",
-                    "description": "数量"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "成功添加到购物车",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Cart"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["cart"],
-        "summary": "清空购物车",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "userId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "用户ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "购物车清空成功"
-          }
-        }
-      }
-    },
-    "/api/cart/{userId}/item/{productId}": {
-      "put": {
-        "tags": ["cart"],
-        "summary": "更新购物车中的商品数量",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "userId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "用户ID"
-          },
-          {
-            "in": "path",
-            "name": "productId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "产品ID"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["quantity"],
-                "properties": {
-                  "quantity": {
-                    "type": "integer",
-                    "description": "更新后的数量"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "购物车项目更新成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Cart"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["cart"],
-        "summary": "从购物车移除商品",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "userId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "用户ID"
-          },
-          {
-            "in": "path",
-            "name": "productId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "产品ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "从购物车移除商品成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Cart"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/users/register": {
-      "post": {
-        "tags": ["users"],
+        "tags": ["auth"],
         "summary": "用户注册",
         "requestBody": {
           "required": true,
@@ -397,7 +69,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求数据验证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -405,9 +87,9 @@
         }
       }
     },
-    "/api/users/login": {
+    "/auth/login": {
       "post": {
-        "tags": ["users"],
+        "tags": ["auth"],
         "summary": "用户登录",
         "requestBody": {
           "required": true,
@@ -425,30 +107,28 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "user": {
-                      "$ref": "#/components/schemas/User"
-                    },
-                    "token": {
-                      "type": "string",
-                      "description": "JWT认证令牌"
-                    }
-                  }
+                  "$ref": "#/components/schemas/AuthResponse"
                 }
               }
             }
           },
           "401": {
-            "description": "登录失败，凭据无效"
+            "description": "登录失败，凭据无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/users/{id}": {
+    "/users/{id}": {
       "get": {
         "tags": ["users"],
-        "summary": "获取用户信息",
+        "summary": "获取用户资料",
         "parameters": [
           {
             "in": "path",
@@ -462,104 +142,107 @@
         ],
         "responses": {
           "200": {
-            "description": "成功获取用户信息",
+            "description": "成功获取用户资料",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/UserProfile"
                 }
               }
             }
           },
           "404": {
-            "description": "用户不存在"
+            "description": "用户不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
-      },
-      "put": {
-        "tags": ["users"],
-        "summary": "更新用户信息",
+      }
+    },
+    "/posts": {
+      "get": {
+        "tags": ["posts"],
+        "summary": "获取内容列表",
         "parameters": [
           {
-            "in": "path",
-            "name": "id",
-            "required": true,
+            "in": "query",
+            "name": "type",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": ["all", "image", "video", "text"]
             },
-            "description": "用户ID"
+            "description": "内容类型"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["newest", "popular"]
+            },
+            "description": "排序方式"
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string",
-                    "description": "用户名"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "description": "用户邮箱"
+        "responses": {
+          "200": {
+            "description": "成功获取内容列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Post"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
                   }
                 }
               }
             }
           }
-        },
-        "responses": {
-          "200": {
-            "description": "用户信息更新成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "用户不存在"
-          }
         }
-      }
-    },
-    "/api/orders/{userId}": {
+      },
       "post": {
-        "tags": ["orders"],
-        "summary": "创建订单",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "userId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "用户ID"
-          }
-        ],
+        "tags": ["posts"],
+        "summary": "创建内容",
+        "security": [{ "BearerAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewOrder"
+                "$ref": "#/components/schemas/NewPost"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "订单创建成功",
+            "description": "内容创建成功",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求数据验证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -567,155 +250,148 @@
         }
       }
     },
-    "/api/orders/user/{userId}": {
+    "/posts/{id}": {
       "get": {
-        "tags": ["orders"],
-        "summary": "获取用户订单列表",
+        "tags": ["posts"],
+        "summary": "获取内容详情",
         "parameters": [
           {
             "in": "path",
-            "name": "userId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string"
             },
-            "description": "用户ID"
+            "description": "内容ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "成功获取用户订单列表",
+            "description": "成功获取内容详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "内容不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/posts/{id}/like": {
+      "post": {
+        "tags": ["interactions"],
+        "summary": "点赞内容",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "内容ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "点赞成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "likes": {
+                      "type": "integer",
+                      "description": "点赞总数"
+                    },
+                    "isLiked": {
+                      "type": "boolean",
+                      "description": "当前用户是否已点赞"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/posts/{id}/comments": {
+      "get": {
+        "tags": ["comments"],
+        "summary": "获取内容评论",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "内容ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取评论列表",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Order"
+                    "$ref": "#/components/schemas/Comment"
                   }
                 }
               }
             }
           }
         }
-      }
-    },
-    "/api/orders/{id}": {
-      "get": {
-        "tags": ["orders"],
-        "summary": "获取订单详情",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "订单ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "成功获取订单详情",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "订单不存在"
-          }
-        }
-      }
-    },
-    "/api/orders/{id}/status": {
-      "put": {
-        "tags": ["orders"],
-        "summary": "更新订单状态",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "订单ID"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["status"],
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "description": "新的订单状态",
-                    "enum": ["待付款", "已付款", "配送中", "已完成", "已取消"]
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "订单状态更新成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "订单不存在"
-          }
-        }
-      }
-    },
-    "/api/payments": {
+      },
       "post": {
-        "tags": ["payments"],
-        "summary": "保存支付信息",
+        "tags": ["comments"],
+        "summary": "发表评论",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "内容ID"
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Payment"
+                "$ref": "#/components/schemas/NewComment"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "支付信息保存成功",
+            "description": "评论发表成功",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "description": "操作是否成功"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "payment": {
-                          "$ref": "#/components/schemas/Payment"
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/Comment"
                 }
               }
             }
@@ -723,14 +399,15 @@
         }
       }
     },
-    "/api/payments/{userId}": {
-      "get": {
-        "tags": ["payments"],
-        "summary": "获取用户支付信息",
+    "/users/{id}/follow": {
+      "post": {
+        "tags": ["interactions"],
+        "summary": "关注用户",
+        "security": [{ "BearerAuth": [] }],
         "parameters": [
           {
             "in": "path",
-            "name": "userId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string"
@@ -740,24 +417,90 @@
         ],
         "responses": {
           "200": {
-            "description": "成功获取支付信息",
+            "description": "关注成功",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": {
+                    "isFollowing": {
                       "type": "boolean",
-                      "description": "操作是否成功"
+                      "description": "当前用户是否已关注"
                     },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "payment": {
-                          "$ref": "#/components/schemas/Payment"
-                        }
-                      }
+                    "followersCount": {
+                      "type": "integer",
+                      "description": "关注者总数"
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages": {
+      "post": {
+        "tags": ["messages"],
+        "summary": "发送私信",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "私信发送成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications": {
+      "get": {
+        "tags": ["notifications"],
+        "summary": "获取通知",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string",
+              "enum": ["all", "likes", "comments", "follows"]
+            },
+            "description": "通知类型"
+          },
+          {
+            "in": "query",
+            "name": "unread",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "只获取未读通知"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取通知列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notification"
                   }
                 }
               }
@@ -768,134 +511,20 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
-      "Product": {
-        "type": "object",
-        "required": ["name", "price"],
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "产品ID"
-          },
-          "name": {
-            "type": "string",
-            "description": "产品名称"
-          },
-          "description": {
-            "type": "string",
-            "description": "产品描述"
-          },
-          "price": {
-            "type": "number",
-            "description": "产品价格"
-          },
-          "image": {
-            "type": "string",
-            "description": "产品图片URL"
-          },
-          "category": {
-            "type": "string",
-            "description": "产品类别"
-          },
-          "stock": {
-            "type": "integer",
-            "description": "库存数量"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "创建时间"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "更新时间"
-          }
-        }
-      },
-      "NewProduct": {
-        "type": "object",
-        "required": ["name", "price"],
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "产品名称"
-          },
-          "description": {
-            "type": "string",
-            "description": "产品描述"
-          },
-          "price": {
-            "type": "number",
-            "description": "产品价格"
-          },
-          "image": {
-            "type": "string",
-            "description": "产品图片URL"
-          },
-          "category": {
-            "type": "string",
-            "description": "产品类别"
-          },
-          "stock": {
-            "type": "integer",
-            "description": "库存数量"
-          }
-        }
-      },
-      "CartItem": {
-        "type": "object",
-        "properties": {
-          "productId": {
-            "type": "string",
-            "description": "产品ID"
-          },
-          "name": {
-            "type": "string",
-            "description": "产品名称"
-          },
-          "price": {
-            "type": "number",
-            "description": "产品价格"
-          },
-          "image": {
-            "type": "string",
-            "description": "产品图片"
-          },
-          "quantity": {
-            "type": "integer",
-            "description": "数量"
-          }
-        }
-      },
-      "Cart": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "购物车ID"
-          },
-          "userId": {
-            "type": "string",
-            "description": "用户ID"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CartItem"
-            }
-          },
-          "totalAmount": {
-            "type": "number",
-            "description": "总价"
-          }
-        }
-      },
       "UserRegistration": {
         "type": "object",
-        "required": ["email", "password", "firstName", "lastName", "phone"],
+        "required": ["username", "email", "password"],
         "properties": {
-          "email": {
+          "username": {
+            "type": "string",
             "description": "用户名"
           },
           "email": {
@@ -905,20 +534,8 @@
           },
           "password": {
             "type": "string",
-            "description": "密码",
-            "format": "password"
-          },
-          "firstName": {
-            "type": "string",
-            "description": "姓氏"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "名字"
-          },
-          "phone": {
-            "type": "string",
-            "description": "手机号码"
+            "format": "password",
+            "description": "密码"
           }
         }
       },
@@ -933,15 +550,31 @@
           },
           "password": {
             "type": "string",
-            "description": "密码",
-            "format": "password"
+            "format": "password",
+            "description": "密码"
+          }
+        }
+      },
+      "AuthResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "token": {
+            "type": "string",
+            "description": "JWT认证令牌"
+          },
+          "expiresIn": {
+            "type": "integer",
+            "description": "令牌过期时间(秒)"
           }
         }
       },
       "User": {
         "type": "object",
         "properties": {
-          "_id": {
+          "id": {
             "type": "string",
             "description": "用户ID"
           },
@@ -954,178 +587,279 @@
             "format": "email",
             "description": "邮箱"
           },
-          "isAdmin": {
+          "avatar": {
+            "type": "string",
+            "description": "头像URL"
+          },
+          "bio": {
+            "type": "string",
+            "description": "个人简介"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["user", "creator", "admin"],
+            "description": "用户角色"
+          }
+        }
+      },
+      "UserProfile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "用户ID"
+          },
+          "username": {
+            "type": "string",
+            "description": "用户名"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "头像URL"
+          },
+          "bio": {
+            "type": "string",
+            "description": "个人简介"
+          },
+          "followersCount": {
+            "type": "integer",
+            "description": "粉丝数"
+          },
+          "followingCount": {
+            "type": "integer",
+            "description": "关注数"
+          },
+          "postsCount": {
+            "type": "integer",
+            "description": "内容数"
+          },
+          "isFollowing": {
             "type": "boolean",
-            "description": "是否是管理员"
+            "description": "当前用户是否已关注"
+          }
+        }
+      },
+      "NewPost": {
+        "type": "object",
+        "required": ["content"],
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "内容文本"
+          },
+          "media": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "媒体文件URL"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "内容标签"
+          }
+        }
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "内容ID"
+          },
+          "content": {
+            "type": "string",
+            "description": "内容文本"
+          },
+          "media": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "媒体文件URL"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "内容标签"
+          },
+          "author": {
+            "$ref": "#/components/schemas/User"
+          },
+          "likes": {
+            "type": "integer",
+            "description": "点赞数"
+          },
+          "comments": {
+            "type": "integer",
+            "description": "评论数"
+          },
+          "isLiked": {
+            "type": "boolean",
+            "description": "当前用户是否已点赞"
           },
           "createdAt": {
             "type": "string",
             "format": "date-time",
             "description": "创建时间"
+          }
+        }
+      },
+      "NewComment": {
+        "type": "object",
+        "required": ["content"],
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "评论内容"
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "评论ID"
           },
-          "updatedAt": {
+          "content": {
+            "type": "string",
+            "description": "评论内容"
+          },
+          "author": {
+            "$ref": "#/components/schemas/User"
+          },
+          "createdAt": {
             "type": "string",
             "format": "date-time",
-            "description": "更新时间"
+            "description": "创建时间"
           }
         }
       },
-      "Address": {
+      "NewMessage": {
         "type": "object",
-        "required": ["address", "city", "postalCode", "country"],
+        "required": ["recipientId", "content"],
         "properties": {
-          "address": {
+          "recipientId": {
             "type": "string",
-            "description": "详细地址"
+            "description": "接收者ID"
           },
-          "city": {
+          "content": {
             "type": "string",
-            "description": "城市"
-          },
-          "province": {
-            "type": "string",
-            "description": "省份"
-          },
-          "postalCode": {
-            "type": "string",
-            "description": "邮政编码"
-          },
-          "country": {
-            "type": "string",
-            "description": "国家"
+            "description": "消息内容"
           }
         }
       },
-      "OrderItem": {
+      "Message": {
         "type": "object",
-        "required": ["productId", "quantity"],
         "properties": {
-          "productId": {
+          "id": {
             "type": "string",
-            "description": "产品ID"
+            "description": "消息ID"
           },
-          "name": {
+          "content": {
             "type": "string",
-            "description": "产品名称"
+            "description": "消息内容"
           },
-          "price": {
-            "type": "number",
-            "description": "产品价格"
+          "sender": {
+            "$ref": "#/components/schemas/User"
           },
-          "image": {
+          "recipient": {
+            "$ref": "#/components/schemas/User"
+          },
+          "createdAt": {
             "type": "string",
-            "description": "产品图片"
-          },
-          "quantity": {
-            "type": "integer",
-            "description": "数量"
+            "format": "date-time",
+            "description": "创建时间"
           }
         }
       },
-      "NewOrder": {
-        "type": "object",
-        "required": ["shippingAddress", "paymentMethod", "orderItems"],
-        "properties": {
-          "shippingAddress": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "paymentMethod": {
-            "type": "string",
-            "description": "支付方式"
-          },
-          "orderItems": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["productId", "quantity"],
-              "properties": {
-                "productId": {
-                  "type": "string",
-                  "description": "产品ID"
-                },
-                "quantity": {
-                  "type": "integer",
-                  "description": "数量"
-                }
-              }
-            }
-          }
-        }
-      },
-      "Order": {
+      "Notification": {
         "type": "object",
         "properties": {
-          "_id": {
+          "id": {
             "type": "string",
-            "description": "订单ID"
+            "description": "通知ID"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["like", "comment", "follow", "mention"],
+            "description": "通知类型"
           },
           "user": {
-            "type": "string",
-            "description": "用户ID"
+            "$ref": "#/components/schemas/User"
           },
-          "orderItems": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrderItem"
-            }
-          },
-          "shippingAddress": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "paymentMethod": {
-            "type": "string",
-            "description": "支付方式"
-          },
-          "paymentResult": {
+          "post": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "string",
-                "description": "支付ID"
+                "type": "string"
               },
-              "status": {
-                "type": "string",
-                "description": "支付状态"
-              },
-              "update_time": {
-                "type": "string",
-                "description": "支付更新时间"
+              "preview": {
+                "type": "string"
               }
             }
           },
-          "totalAmount": {
-            "type": "number",
-            "description": "总价"
-          },
-          "status": {
-            "type": "string",
-            "description": "订单状态",
-            "enum": ["待付款", "已付款", "配送中", "已完成", "已取消"]
+          "isRead": {
+            "type": "boolean",
+            "description": "是否已读"
           },
           "createdAt": {
             "type": "string",
             "format": "date-time",
             "description": "创建时间"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "更新时间"
           }
         }
       },
-      "Payment": {
+      "Pagination": {
         "type": "object",
-        "required": ["userId", "paymentMethod"],
         "properties": {
-          "userId": {
-            "type": "string",
-            "description": "用户ID"
+          "totalItems": {
+            "type": "integer",
+            "description": "总条目数"
           },
-          "paymentMethod": {
-            "type": "string",
-            "description": "支付方式",
-            "enum": ["alipay", "wechat"]
+          "totalPages": {
+            "type": "integer",
+            "description": "总页数"
+          },
+          "currentPage": {
+            "type": "integer",
+            "description": "当前页码"
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "每页大小"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "错误代码"
+              },
+              "message": {
+                "type": "string",
+                "description": "错误信息"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP状态码"
+              },
+              "details": {
+                "type": "object",
+                "description": "错误详情"
+              }
+            }
           }
         }
       }

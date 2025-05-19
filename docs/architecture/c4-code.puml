@@ -8,12 +8,82 @@ LAYOUT_WITH_LEGEND()
 Container_Boundary(post_flow, "帖子发布流程") {
     Component(post_route, "PostRoute", "Express Router", "处理帖子请求")
     Component(post_controller, "PostController", "TypeScript", "处理帖子逻辑")
-    Component(post_model, "PostModel", "Mongoose", "帖子数据模型")
+    Component(post_model, "PostModel", "TypeORM", "帖子数据模型")
     Component(cdn_client, "CDNClient", "TypeScript", "与CDN通信")
 }
 
+' 代码图 - 用户认证流程
+Container_Boundary(auth_flow, "用户认证流程") {
+    Component(auth_route, "AuthRoute", "Express Router", "处理认证请求")
+    Component(auth_controller, "AuthController", "TypeScript", "处理认证逻辑")
+    Component(user_model, "UserModel", "TypeORM", "用户数据模型")
+    Component(session_service, "SessionService", "TypeScript", "管理用户会话")
+}
+
+' 代码图 - 消息处理流程
+Container_Boundary(message_flow, "消息处理流程") {
+    Component(message_route, "MessageRoute", "Express Router", "处理消息请求")
+    Component(message_controller, "MessageController", "TypeScript", "处理消息逻辑")
+    Component(message_model, "MessageModel", "Cassandra", "消息数据模型")
+}
+
+' 代码图 - 互动功能流程
+Container_Boundary(interaction_flow, "互动功能流程") {
+    Component(interaction_route, "InteractionRoute", "Express Router", "处理互动请求")
+    Component(interaction_controller, "InteractionController", "TypeScript", "处理互动逻辑")
+    Component(like_model, "LikeModel", "TypeORM", "点赞数据模型")
+    Component(bookmark_model, "BookmarkModel", "TypeORM", "收藏数据模型")
+    Component(share_model, "ShareModel", "TypeORM", "分享数据模型")
+}
+
+' 代码图 - 通知服务流程
+Container_Boundary(notification_flow, "通知服务流程") {
+    Component(notification_route, "NotificationRoute", "Express Router", "处理通知请求")
+    Component(notification_controller, "NotificationController", "TypeScript", "处理通知逻辑")
+    Component(notification_model, "NotificationModel", "Cassandra", "通知数据模型")
+    Component(push_service, "PushService", "TypeScript", "推送服务")
+}
+
+' 缓存层
+Container_Boundary(cache_layer, "缓存层") {
+    Component(redis_client, "RedisClient", "TypeScript", "Redis缓存客户端")
+    Component(cache_service, "CacheService", "TypeScript", "缓存服务")
+}
+
+' 数据库层
+System_Boundary(db_layer, "数据库层") {
+    SystemDb(postgres, "PostgreSQL", "关系型数据库")
+    SystemDb(cassandra, "Cassandra", "NoSQL数据库")
+    SystemDb(redis, "Redis", "缓存数据库")
+}
+
+' 关系定义
 Rel(post_route, post_controller, "调用", "TypeScript")
 Rel(post_controller, post_model, "调用", "TypeScript")
 Rel(post_controller, cdn_client, "调用", "HTTPS")
+Rel(auth_route, auth_controller, "调用", "TypeScript")
+Rel(auth_controller, user_model, "调用", "TypeScript")
+Rel(auth_controller, session_service, "调用", "TypeScript")
+Rel(message_route, message_controller, "调用", "TypeScript")
+Rel(message_controller, message_model, "调用", "TypeScript")
+Rel(interaction_route, interaction_controller, "调用", "TypeScript")
+Rel(interaction_controller, like_model, "调用", "TypeScript")
+Rel(interaction_controller, bookmark_model, "调用", "TypeScript") 
+Rel(interaction_controller, share_model, "调用", "TypeScript")
+Rel(notification_route, notification_controller, "调用", "TypeScript")
+Rel(notification_controller, notification_model, "调用", "TypeScript")
+Rel(notification_controller, push_service, "调用", "TypeScript")
+
+' 数据持久化关系
+Rel(post_model, postgres, "持久化", "TypeORM")
+Rel(user_model, postgres, "持久化", "TypeORM")
+Rel(like_model, postgres, "持久化", "TypeORM")
+Rel(bookmark_model, postgres, "持久化", "TypeORM")
+Rel(share_model, postgres, "持久化", "TypeORM")
+Rel(message_model, cassandra, "持久化", "Cassandra")
+Rel(notification_model, cassandra, "持久化", "Cassandra")
+Rel(session_service, redis, "存储会话", "Redis")
+Rel(cache_service, redis, "缓存数据", "Redis")
+Rel(push_service, redis, "存储推送令牌", "Redis")
 
 @enduml
